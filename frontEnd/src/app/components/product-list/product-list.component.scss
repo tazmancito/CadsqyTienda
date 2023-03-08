@@ -1,0 +1,27 @@
+
+.products {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  overflow:auto;
+}
+
+.product {
+  width: 250px;
+  margin: 10px;
+}
+
+.mat-card-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.mat-card-subtitle {
+  font-size: 18px;
+  color: #666;
+}
+
+.mat-card-image {
+  height: 200px;
+  object-fit: cover;
+}

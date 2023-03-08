@@ -1,0 +1,81 @@
+<nav
+  class="navbar navbar-expand-lg text-white"
+  style="background-color: #201e1e"
+>
+  <button mat-icon-button (click)="drawer.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span class="mx-2">CADS</span>
+  <form class="d-flex mx-2 w-100 justify-content-between">
+    <input type="text" name="search" placeholder="Buscar.." />
+
+    <button mat-icon-button (click)="drawer.toggle()">
+      <mat-icon
+        ><span class="material-symbols-outlined">
+          shopping_cart
+        </span></mat-icon
+      >
+    </button>
+  </form>
+</nav>
+
+<mat-drawer-container
+  class="container-sidenav w-100 min-vh-100"
+  autosize
+  [hasBackdrop]="true"
+>
+  <mat-drawer #drawer class="p-4 text-white" mode="side">
+    <mat-tree
+      [dataSource]="dataSource"
+      [treeControl]="treeControl"
+      class="example-tree"
+    >
+      <!-- This is the tree node template for leaf nodes -->
+      <!-- There is inline padding applied to this node using styles.
+        This padding value depends on the mat-icon-button width. -->
+      <mat-tree-node
+        *matTreeNodeDef="let node"
+        matTreeNodeToggle
+        style="border-bottom: 1px solid #e0e6ef"
+      >
+        <a
+          [routerLink]="['/categoria', node.nombre]"
+          (click)="drawer.toggle()"
+          >{{ node.nombre }}</a
+        >
+      </mat-tree-node>
+      <!-- This is the tree node template for expandable nodes -->
+      <mat-nested-tree-node *matTreeNodeDef="let node; when: hasSubmenu">
+        <div class="mat-tree-node" style="border-bottom: 1px solid #e0e6ef">
+          <a
+            [routerLink]="['/categoria', node.nombre]"
+            (click)="drawer.toggle()"
+            >{{ node.nombre }}</a
+          >
+          <button mat-icon-button matTreeNodeToggle>
+            <mat-icon class="mat-icon-rtl-mirror">
+              {{ treeControl.isExpanded(node) ? "expand_more" : "menu" }}
+            </mat-icon>
+          </button>
+        </div>
+        <!-- There is inline padding applied to this div using styles.
+              This padding value depends on the mat-icon-button width.  -->
+        <div
+          [class.example-tree-invisible]="!treeControl.isExpanded(node)"
+          role="group"
+        >
+          <ng-container matTreeNodeOutlet></ng-container>
+        </div>
+      </mat-nested-tree-node>
+    </mat-tree>
+  </mat-drawer>
+
+  <div class="d-flex align-items-stretch bg-light">
+    <app-product-list class="w-100 min-vh-100"></app-product-list>
+  </div>
+</mat-drawer-container>
+<footer class="footer mt-auto py-3 bg-dark">
+  <div class="container">
+    <span class="text-muted">Place sticky footer content here.</span>
+  </div>
+</footer>

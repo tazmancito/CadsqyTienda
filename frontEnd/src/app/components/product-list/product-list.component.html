@@ -1,0 +1,46 @@
+<mat-paginator
+  #paginator
+
+  (page)="handlePageEvent($event)"
+  [length]="length"
+  [pageSize]="pageSize"
+  [showFirstLastButtons]="true"
+  [pageSizeOptions]="pageSizeOptions"
+  [pageIndex]="pageIndex"
+  aria-label="Select page"
+>
+</mat-paginator>
+<div class="products">
+  <mat-card class="product shadow p-3 mb-5 bg-body-tertiary rounded" *ngFor="let product of productsShowing">
+    <img mat-card-image src="{{ product.img }}" />
+    <mat-card-title class="mx-1 text-black">{{ product.nombre }}</mat-card-title>
+    <mat-card-subtitle class="text-black m-1 d-flex justify-content-end"
+      >{{ product.precio }} Bs</mat-card-subtitle
+    >
+    <mat-card-content class="text-primary d-inline-block text-truncate">
+      {{ product.descripcion }}
+    </mat-card-content>
+    <mat-card-actions class="d-flex justify-content-end">
+      <button mat-button>
+        Agregar al carrito
+        <mat-icon>
+          <span class="material-symbols-outlined">
+            add_shopping_cart
+          </span></mat-icon
+        >
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+<mat-paginator
+  #paginator
+  (page)="handlePageEvent($event)"
+  [length]="length"
+  [pageSize]="pageSize"
+  [showFirstLastButtons]="true"
+  [pageSizeOptions]="pageSizeOptions"
+  [pageIndex]="pageIndex"
+  aria-label="Select page" *ngIf="productsShowing.length >= 10"
+>
+</mat-paginator>
