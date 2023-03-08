@@ -1,4 +1,7 @@
+import { Injectable } from '@angular/core';
 import { MatPaginatorIntl } from '@angular/material/paginator';
+
+@Injectable()
 export class CustomPaginatorIntl extends MatPaginatorIntl {
   override itemsPerPageLabel = 'Productos por página';
   override nextPageLabel = 'Siguiente página';
@@ -9,5 +12,4 @@ export class CustomPaginatorIntl extends MatPaginatorIntl {
     const start = end - pageSize + 1;
     return `${start} - ${end} de ${length} `;
   }
-  // También puedes sobrescribir la propiedad "getRangeLabel" para cambiar el formato del rango de elementos mostrados
 }
