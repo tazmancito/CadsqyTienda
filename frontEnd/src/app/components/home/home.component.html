@@ -39,18 +39,18 @@
         style="border-bottom: 1px solid #e0e6ef"
       >
         <a
-          [routerLink]="['/categoria', node.nombre]"
+          [routerLink]="['/categoria', node.Nombre]"
           (click)="drawer.toggle()"
-          >{{ node.nombre }}</a
+          >{{ node.Nombre }}</a
         >
       </mat-tree-node>
       <!-- This is the tree node template for expandable nodes -->
       <mat-nested-tree-node *matTreeNodeDef="let node; when: hasSubmenu">
         <div class="mat-tree-node" style="border-bottom: 1px solid #e0e6ef">
           <a
-            [routerLink]="['/categoria', node.nombre]"
+            [routerLink]="['/categoria', node.Nombre]"
             (click)="drawer.toggle()"
-            >{{ node.nombre }}</a
+            >{{ node.Nombre }}</a
           >
           <button mat-icon-button matTreeNodeToggle>
             <mat-icon class="mat-icon-rtl-mirror">

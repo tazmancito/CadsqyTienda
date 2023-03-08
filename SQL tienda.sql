@@ -33,13 +33,13 @@ CREATE TABLE Usuarios (
     FOREIGN KEY (RolId) REFERENCES Roles(RolId)
 );
 
-CREATE TABLE Category (
+CREATE TABLE Categoria (
   CategoriaId int NOT NULL AUTO_INCREMENT,
   Nombre varchar(255)  NOT NULL,
   CategoriaPadreId int,
   EsPadre BOOLEAN NOT NULL,
   PRIMARY KEY (CategoriaId),
-  FOREIGN KEY (CategoriaPadreId) REFERENCES Category(CategoriaId)
+  FOREIGN KEY (CategoriaPadreId) REFERENCES Categoria(CategoriaId)
 );
 
 CREATE TABLE Productos (
@@ -82,8 +82,18 @@ CREATE TABLE Productos (
  (9161533, 9161527, 'Erik', 'avatar', 'Quiroga', '1978/07/01', 'cads@cadsqy.com', '$2a$10$cLYkWfBJke8SqL.voL.nJuCGwrxHo6TFk0kbyuYvoUzqtS9WTzRea', 1);
 
 
-INSERT INTO `Productos` (`CategoriaId`,`nombre`, `descripcion`, `img`, `precio`) VALUES ('1',Sneakers', 'zapatillas', 'https://via.placeholder.com/200x200', '22');
+INSERT INTO Productos (CategoriaId,nombre, descripcion, img, precio) VALUES 
+('1','Sneakers', 'zapatillas', 'https://via.placeholder.com/200x200', '22');
 
-SELECT * FROM `Productos` WHERE nombre like '%palabrabuscada%'
+SELECT * FROM `Productos` WHERE nombre like '%palabrabuscada%';
 
-SELECT * FROM ((Productos LEFT JOIN Categoria on (Categoria.CategoriaId = Productos.CategoriaId))) WHERE Categoria.nombre = 'ropa'
+SELECT * FROM ((Productos LEFT JOIN Categoria on (Categoria.CategoriaId = Productos.CategoriaId))) WHERE Categoria.nombre = 'ropa';
+
+
+-- eliminar tablas 
+
+DROP TABLE Productos;
+DROP TABLE Categoria;
+DROP TABLE Permisos;
+DROP TABLE Usuarios;
+DROP Table Roles;

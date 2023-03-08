@@ -1,5 +1,6 @@
 export interface Category {
   CategoryId?: number;
-  nombre: string;
+  Nombre: string;
+  CategoriaPadreId?: number;
   categories?: Category[];
 }
