@@ -44,7 +44,6 @@ export class HomeComponent {
     });
 
     let result = Array.from(mapCategorias.values());
-    console.log(result);
     return result;
   }
 
