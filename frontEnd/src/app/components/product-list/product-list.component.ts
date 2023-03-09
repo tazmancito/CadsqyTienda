@@ -32,6 +32,7 @@ export class ProductListComponent {
           .getProductsByCategory(params.get('categoria')!)
           .subscribe((result: Product[]) => {
             if (result.length > 0) {
+              this.pageIndex = 0;
               this.chageProductList(result);
             }
           });
