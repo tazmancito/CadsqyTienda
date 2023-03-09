@@ -30,9 +30,11 @@ const getProductsByOrderAleatory = async () => {
 
 const getProductsByCategory = async (categoria) => {
   const sentence =
-    "SELECT Productos.ProductosId, Productos.nombre, Productos.img, Productos.precio, Productos.descripcion FROM ((Productos LEFT JOIN Categoria on (Categoria.CategoriaId = Productos.CategoriaId))) WHERE Categoria.nombre = '" +
+    "SELECT * FROM Productos WHERE CategoriaId IN ( SELECT CategoriaId FROM Categoria WHERE Categoria.CategoriaPadreId IN (SELECT CategoriaId FROM Categoria WHERE Categoria.Nombre = '" +
     categoria +
-    "';";
+    "') ) OR CategoriaId IN (SELECT CategoriaId FROM Categoria WHERE Categoria.Nombre = '" +
+    categoria +
+    "') ";
   let result = await cdb.query(sentence);
 
   return result;

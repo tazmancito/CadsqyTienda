@@ -15,6 +15,10 @@ export class CategoryService {
   getCategories() {
     return this.http.get<Category[]>(this.baseURL);
   }
+  
+  getSubCateries(){
+    return this.http.get<Category[]>(`${this.baseURL}/subCategorias`)
+  }
 
   savePieceCategory(category: any) {
     return this.http.post(this.baseURL, category);

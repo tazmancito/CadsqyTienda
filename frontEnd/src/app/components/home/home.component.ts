@@ -1,13 +1,13 @@
-import { NestedTreeControl } from '@angular/cdk/tree';
-import { Component } from '@angular/core';
-import { MatTreeNestedDataSource } from '@angular/material/tree';
-import { Category } from '@models/category';
-import { CategoryService } from '@services/category-service.service';
+import { NestedTreeControl } from "@angular/cdk/tree";
+import { Component } from "@angular/core";
+import { MatTreeNestedDataSource } from "@angular/material/tree";
+import { Category } from "@models/category";
+import { CategoryService } from "@services/category-service.service";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  selector: "app-home",
+  templateUrl: "./home.component.html",
+  styleUrls: ["./home.component.scss"],
 })
 export class HomeComponent {
   treeControl = new NestedTreeControl<Category>((node) => node.categories);
@@ -17,14 +17,47 @@ export class HomeComponent {
     !!node.categories && node.categories.length > 0;
 
   constructor(private _categoryServise: CategoryService) {}
+
   ngOnInit() {
-    this.getCategories();
+    this.getFullCategories();
   }
 
-  getCategories() {
-    this._categoryServise.getCategories().subscribe((result: Category[]) => {
-      // this.categories = result;
-      this.dataSource.data = result;
+  orderCategories(categories: any[], subCategories: any[]): Category[] {
+    let mapCategorias = new Map<number, Category>();
+
+    categories.forEach((category) => {
+      let aux: Category = {
+        CategoryId: category.CategoriaId,
+        Nombre: category.Nombre,
+        categories: [],
+      };
+      mapCategorias.set(category.CategoriaId, aux);
     });
+
+    subCategories.forEach((subCategory) => {
+      let aux: Category = {
+        CategoryId: subCategory.CategoriaId,
+        Nombre: subCategory.Nombre,
+        categories: [],
+      };
+      mapCategorias.get(subCategory.CategoriaPadreId)?.categories?.push(aux);
+    });
+
+    let result = Array.from(mapCategorias.values());
+    console.log(result);
+    return result;
+  }
+
+  getFullCategories() {
+    this._categoryServise
+      .getCategories()
+      .subscribe((categories: Category[]) => {
+        this._categoryServise.getSubCateries().subscribe((subcategories) => {
+          this.dataSource.data = this.orderCategories(
+            categories,
+            subcategories
+          );
+        });
+      });
   }
 }

@@ -45,15 +45,16 @@ CREATE TABLE Categoria (
 CREATE TABLE Productos (
   ProductosId int NOT NULL AUTO_INCREMENT,
   CategoriaId int NOT NULL,
-  SubCategoriaId int,
   nombre varchar(255)  NOT NULL,
   descripcion text NOT NULL,
   img varchar(255)  NOT NULL,
   precio float NOT NULL,
   PRIMARY KEY (ProductosId),
-  FOREIGN KEY (CategoriaId) REFERENCES Categoria(CategoriaId),
-  FOREIGN KEY (SubCategoriaId) REFERENCES Categoria(CategoriaId)
+  FOREIGN KEY (CategoriaId) REFERENCES Categoria(CategoriaId)
 )
+
+INSERT INTO Productos (CategoriaId,nombre, descripcion, img, precio) VALUES 
+('1','Sneakers', 'zapatillas', 'https://via.placeholder.com/200x200', '22');
 
 -- modificaciones iniciales
 
@@ -82,8 +83,7 @@ CREATE TABLE Productos (
  (9161533, 9161527, 'Erik', 'avatar', 'Quiroga', '1978/07/01', 'cads@cadsqy.com', '$2a$10$cLYkWfBJke8SqL.voL.nJuCGwrxHo6TFk0kbyuYvoUzqtS9WTzRea', 1);
 
 
-INSERT INTO Productos (CategoriaId,nombre, descripcion, img, precio) VALUES 
-('1','Sneakers', 'zapatillas', 'https://via.placeholder.com/200x200', '22');
+
 
 SELECT * FROM `Productos` WHERE nombre like '%palabrabuscada%';
 
@@ -97,3 +97,18 @@ DROP TABLE Categoria;
 DROP TABLE Permisos;
 DROP TABLE Usuarios;
 DROP Table Roles;
+
+
+-- buscar productos por categoria y subcategoria
+
+SELECT * 
+FROM Productos 
+WHERE CategoriaId IN ( SELECT CategoriaId 
+                        FROM Categoria 
+                        WHERE Categoria.CategoriaPadreId IN (
+                          SELECT CategoriaId 
+                          FROM Categoria 
+                          WHERE Categoria.Nombre = 'Electrónica') ) OR CategoriaId IN (
+                            SELECT CategoriaId 
+                            FROM Categoria 
+                            WHERE Categoria.Nombre = 'Electrónica') 
