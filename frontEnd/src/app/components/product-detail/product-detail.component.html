@@ -11,11 +11,15 @@
       <div class="row justify-content-center">
         <img src="{{ imgMain }}" class="col-12 img-fluid" alt="..." />
         <div class="row px-3 py-2">
-          <div *ngFor="let img of otherImgs; let i = index" class="col btn" (click)="switchImage(img,i)">
+          <div
+            *ngFor="let img of otherImgs; let i = index"
+            class="col btn"
+            (click)="switchImage(img, i)"
+          >
             <img
-              src="{{img}}"
+              src="{{ img }}"
               class="img-fluid"
-              alt="..."
+              alt="imagen producto detalle"
             />
           </div>
         </div>
