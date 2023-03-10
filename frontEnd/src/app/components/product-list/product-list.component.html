@@ -41,6 +41,6 @@
   [showFirstLastButtons]="true"
   [pageSizeOptions]="pageSizeOptions"
   [pageIndex]="pageIndex"
-  aria-label="Select page" *ngIf="productsShowing.length >= 10"
+  *ngIf='productsShowing.length > 10'
 >
 </mat-paginator>

@@ -28,6 +28,7 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { HomeComponent } from './components/home/home.component';
 import { CustomPaginatorIntl } from './Customs/CustomPaginatorIntl';
+import { CartComponent } from './components/cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { CustomPaginatorIntl } from './Customs/CustomPaginatorIntl';
     ProductListComponent,
     ProductDetailComponent,
     HomeComponent,
+    CartComponent,
   ],
   imports: [
     BrowserModule,
