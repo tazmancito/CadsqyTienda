@@ -54,7 +54,9 @@
           >
           <button mat-icon-button matTreeNodeToggle>
             <mat-icon class="mat-icon-rtl-mirror">
-              {{ treeControl.isExpanded(node) ? "expand_more" : "chevron_right" }}
+              {{
+                treeControl.isExpanded(node) ? "expand_more" : "chevron_right"
+              }}
             </mat-icon>
           </button>
         </div>
@@ -70,14 +72,24 @@
     </mat-tree>
   </mat-drawer>
 
-  <div class=" bg-light">
+  <div class="bg-light">
     <!-- <app-product-list ></app-product-list> -->
     <router-outlet></router-outlet>
- 
   </div>
 </mat-drawer-container>
-<footer class="footer mt-auto py-3 bg-dark">
+<footer class="footer mt-auto py-3 bg-dark text-white">
   <div class="container">
-    <span class="text-muted">Place sticky footer content here.</span>
+    <div class="row">
+      <div class="col-md-6">
+        <p>&copy; 2023 Cads</p>
+      </div>
+      <div class="col-md-6 text-md-right">
+        <ul class="list-inline">
+          <li class="list-inline-item"><a href="#">Inicio</a></li>
+          <li class="list-inline-item"><a href="#">Acerca de</a></li>
+          <li class="list-inline-item"><a href="#">Contacto</a></li>
+        </ul>
+      </div>
+    </div>
   </div>
 </footer>
