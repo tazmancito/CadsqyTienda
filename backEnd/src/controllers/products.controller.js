@@ -4,6 +4,11 @@ const {
   searchProducts,
   getProductsByOrderAleatory,
   getProductsByCategory,
+  getProducts,
+  getProductByID,
+  addProductDB,
+  updateProductDB,
+  removeProductDB,
 } = require("../sentencesSQL/product.sql");
 
 /**
@@ -22,6 +27,25 @@ const getProductByName = async (req, res) => {
     }
   } catch (error) {
     handleHttpError(res, "ErrorSearchProduct");
+  }
+};
+
+/**
+ * obtener todos los productos disponibles
+ * @param req
+ * @param res  todos los productos de la tienda
+ */
+const getProductsDB = async (req, res) => {
+  try {
+    let word = req.params.word;
+    let result = await getProducts();
+    if (result == null) {
+      res.json([]);
+    } else {
+      res.json(result);
+    }
+  } catch (error) {
+    handleHttpError(res, "ErrorSearchProducts");
   }
 };
 
@@ -63,8 +87,79 @@ const getAllProductsByCategory = async (req, res) => {
   }
 };
 
+/**
+ * obtener producto por id
+ * @param req
+ * @param res  todos los producto solicitado
+ */
+const getProductById = async (req, res) => {
+  try {
+    let id = req.params.id;
+    let result = await getProductByID(id);
+    if (result == null) {
+      res.json([]);
+    } else {
+      console.log(result);
+      res.json(result);
+    }
+  } catch (error) {
+    handleHttpError(res, "ErrorSearchProductById");
+  }
+};
+
+/**
+ * agregar producto
+ * @param req objeto producto
+ * @param res
+ */
+const addProduct = async (req, res) => {
+  try {
+    const values = Object.values(req.body);
+    let result = await addProductDB(values);
+    res.json({ message: "producto agregado conexito" });
+  } catch (error) {
+    handleHttpError(res, "ErrorAddProduct");
+  }
+};
+
+/**
+ * modificar producto
+ * @param req objeto producto
+ * @param res
+ */
+const updateProduct = async (req, res) => {
+  try {
+    const values = Object.values(req.body);
+    let ID = req.params.id;
+    let result = await updateProductDB(values, ID);
+    res.json({ message: "producto actualizado con exito conexito" });
+  } catch (error) {
+    handleHttpError(res, "ErrorUpdateProduct");
+  }
+};
+
+/**
+ * eliminar producto
+ * @param req id del producto
+ * @param res
+ */
+const deleteProduct = async (req, res) => {
+  try {
+    let ID = req.params.id;
+    let result = await removeProductDB(ID);
+    res.json({ message: "eliminado con exito" });
+  } catch (error) {
+    handleHttpError(res, "ErrorDeleteProduct");
+  }
+};
+
 module.exports = {
   getProductByName,
   getProductsAletoryOrder,
   getAllProductsByCategory,
+  getProductsDB,
+  getProductById,
+  addProduct,
+  updateProduct,
+  deleteProduct,
 };
