@@ -1,12 +1,12 @@
-import { Component, Input } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { Product } from '@models/product';
-import { ProductService } from '@services/product-service.service';
+import { Component, Input } from "@angular/core";
+import { PageEvent } from "@angular/material/paginator";
+import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
+import { Product } from "@models/product";
+import { ProductService } from "@services/product-service.service";
 @Component({
-  selector: 'app-product-list',
-  templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.scss'],
+  selector: "app-product-list",
+  templateUrl: "./product-list.component.html",
+  styleUrls: ["./product-list.component.scss"],
 })
 export class ProductListComponent {
   products: Product[] = [];
@@ -17,7 +17,7 @@ export class ProductListComponent {
   pageIndex = 0;
   pageSizeOptions = [10, 25, 50];
 
-  @Input() category: string = '';
+  @Input() category: string = "";
 
   constructor(
     private _productService: ProductService,
@@ -27,9 +27,9 @@ export class ProductListComponent {
 
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
-      if (params.get('categoria') != null) {
+      if (params.get("categoria") != null) {
         this._productService
-          .getProductsByCategory(params.get('categoria')!)
+          .getProductsByCategory(params.get("categoria")!)
           .subscribe((result: Product[]) => {
             if (result.length > 0) {
               this.pageIndex = 0;
@@ -79,11 +79,32 @@ export class ProductListComponent {
     if (this.pageIndex > 0) {
       min = this.pageSize * this.pageIndex;
       max = this.pageSize * (this.pageIndex + 1);
-      console.log(min + ' - ' + max);
+      console.log(min + " - " + max);
     }
 
     for (let i = min; i < max && i < this.products.length; i++) {
       this.productsShowing.push(this.products[i]);
     }
+  }
+
+  addProductToCart(product: Product) {
+    
+    if(localStorage.getItem('listP')){
+      try {
+        let aux = JSON.parse(localStorage.getItem('listP')!);
+        aux.push(product);
+
+        localStorage.setItem('listP', JSON.stringify(aux));
+      } catch (error) {
+        console.log("hubo un error")
+      }
+      
+    } else{
+
+      let aux: Product[] = []
+      aux.push(product);
+      localStorage.setItem('listP', JSON.stringify(aux));
+    }
+    
   }
 }

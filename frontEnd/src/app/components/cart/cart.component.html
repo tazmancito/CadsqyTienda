@@ -1,1 +1,35 @@
-<p>cart works!</p>
+<div
+  class="container d-flex justify-content-center align-items-sm-start align-items-md-center"
+  style="min-height: 100vh; width: 100%"
+>
+  <div class="d-flex flex-column justify-content-start mt-2">
+    <mat-selection-list
+      #productList
+      [multiple]="true"
+      (click)="calcTotalPrice(productList.selectedOptions.selected)"
+    >
+      <mat-list-option
+        *ngFor="let product of products"
+        [value]="product"
+        class="mb-2"
+      >
+        <div class="d-flex flex-row align-items-center">
+          <img
+            src="{{ product.img }}"
+            height="50px"
+            width="50px
+            "
+          />
+          <span class="mx-2 fs-3">{{ product.nombre }}</span>
+          <span class="mx-2 fs-3">{{ product.precio }} Bs</span>
+        </div>
+      </mat-list-option>
+    </mat-selection-list>
+
+    <span class="px-2 fs-3 my-3">
+      Productos Seleccionados: {{ productList.selectedOptions.selected.length }}
+    </span>
+    <span class="px-2 fs-3">Precio Total: {{ totalPrice }}</span>
+    <button mat-button class="fs-2 my-3">Realizar Pedido</button>
+  </div>
+</div>

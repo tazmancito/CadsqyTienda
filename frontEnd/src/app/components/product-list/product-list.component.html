@@ -21,7 +21,7 @@
       {{ product.descripcion }}
     </mat-card-content>
     <mat-card-actions class="d-flex justify-content-end">
-      <button mat-button>
+      <button mat-button (click)="addProductToCart(product)">
         Agregar al carrito
         <mat-icon>
           <span class="material-symbols-outlined">

@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Product } from "@models/product";
 
 @Component({
   selector: "app-product-detail",
@@ -6,6 +7,7 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./product-detail.component.scss"],
 })
 export class ProductDetailComponent implements OnInit {
+  product: Product | undefined;
   public imgMain: string =
     "https://cdn.pixabay.com/photo/2022/08/03/13/09/moon-7362632_960_720.jpg";
 
@@ -23,5 +25,22 @@ export class ProductDetailComponent implements OnInit {
   switchImage(img: string, index: number) {
     this.otherImgs[index] = this.imgMain;
     this.imgMain = img;
+  }
+
+  addProductToCart() {
+    if (localStorage.getItem("listP")) {
+      try {
+        let aux = JSON.parse(localStorage.getItem("listP")!);
+        aux.push(this.product);
+
+        localStorage.setItem("listP", JSON.stringify(aux));
+      } catch (error) {
+        console.log("hubo un error");
+      }
+    } else {
+      let aux: Product[] = [];
+      aux.push(this.product!);
+      localStorage.setItem("listP", JSON.stringify(aux));
+    }
   }
 }
