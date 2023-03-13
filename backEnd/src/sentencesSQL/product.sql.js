@@ -14,7 +14,7 @@ const updateProductDB = async (data, id) => {
   let result;
   let values = Object.values(data);
 
-  let sentence = `UPDATE ${tableName} SET CategoriaId=?, nombre=?, descripcion=?, img=?, precio=? WHERE ProductosId=?`;
+  let sentence = `UPDATE ${tableName} SET ProductosId=?, CategoriaId=?, nombre=?, descripcion=?, img=?, precio=? WHERE ProductosId=?`;
   result = cdb.query(sentence, [...values, id]);
   return result;
 };

@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "@enviroment/environment";
 import { Product } from "@models/product";
+import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -11,25 +12,25 @@ export class ProductService {
 
   constructor(private http: HttpClient) {}
 
-  getProducts() {
+  getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.baseURL}/productos`);
   }
 
-  getProductsAleatory() {
+  getProductsAleatory(): Observable<Product[]> {
     return this.http.get<Product[]>(
       `${this.baseURL}/productos-orden-aleatorio`
     );
   }
 
-  getProductsByName(name: string) {
+  getProductsByName(name: string): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.baseURL}/buscar-productos/${name}`);
   }
 
-  getProductsById(id: number) {
-    return this.http.get<Product[]>(`${this.baseURL}/producto/${id}`);
+  getProductsById(id: number): Observable<Product> {
+    return this.http.get<Product>(`${this.baseURL}/producto/${id}`);
   }
 
-  getProductsByCategory(category: string) {
+  getProductsByCategory(category: string): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.baseURL}/categoria/${category}`);
   }
 

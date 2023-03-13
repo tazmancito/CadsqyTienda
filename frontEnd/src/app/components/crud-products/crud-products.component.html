@@ -1,1 +1,59 @@
-<p>crud-products works!</p>
+<div class="container mt-2">
+  <button mat-raised-button color="primary" (click)="addProduct()">
+    Agregar producto
+  </button>
+</div>
+
+<div class="container">
+  <mat-form-field style="width: 100%">
+    <mat-label>Filtro</mat-label>
+    <input
+      matInput
+      (keyup)="applyFilter($event)"
+      placeholder="Buscar por nombre de producto, categoria o subacategoria"
+      #input
+    />
+  </mat-form-field>
+  <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+    <ng-container matColumnDef="nombre">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</mat-header-cell>
+      <mat-cell *matCellDef="let producto">{{ producto.nombre }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="descripción">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Descripción</mat-header-cell>
+      <mat-cell *matCellDef="let producto">{{ producto.descripcion }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="precio">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Precio</mat-header-cell>
+      <mat-cell *matCellDef="let producto">{{ producto.precio }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="acciones">
+      <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+      <mat-cell *matCellDef="let producto" class="me-2">
+        <button
+          mat-icon-button
+          color="primary"
+          (click)="editarProducto(producto)"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          color="warn"
+          (click)="eliminarProducto(producto)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
+    <mat-row *matRowDef="let fila; columns: columnas"></mat-row>
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No se encontro ninguna coincidencia con este filtro "{{input.value}}"</td>
+    </tr>
+  </mat-table>
+  <mat-paginator
+    [pageSizeOptions]="[10, 25, 50]"
+    aria-label="Select page of users"
+  ></mat-paginator>
+</div>

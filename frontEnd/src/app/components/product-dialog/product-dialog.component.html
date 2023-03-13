@@ -1,0 +1,40 @@
+<h1 mat-dialog-title>{{ data.ProductosId ? "Editar" : "Agregar" }} producto</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Nombre</mat-label>
+    <input matInput [(ngModel)]="data.nombre" placeholder="Nombre" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Descripción</mat-label>
+    <textarea matInput [(ngModel)]="data.descripcion" placeholder="Descripción  del producto"></textarea>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Precio</mat-label>
+    <input
+      matInput
+      [(ngModel)]="data.precio"
+      placeholder="Precio"
+      type="number"
+    />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Categoria</mat-label>
+    <mat-select [(ngModel)]="data.categoria">
+      <mat-option value="one">First option</mat-option>
+      <mat-option value="two">Second option</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Subcategoria</mat-label>
+    <mat-select [(ngModel)]="data.categoria">
+      <mat-option value="one">First option</mat-option>
+      <mat-option value="two">Second option</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="onOkClick()">
+    Aceptar
+  </button>
+</div>

@@ -43,8 +43,8 @@ export class ProductListComponent {
   }
 
   handlePageEvent(e: PageEvent) {
-    this.length = e.length;
     this.pageSize = e.pageSize;
+    this.length = e.length;
     this.pageIndex = e.pageIndex;
     this.showProducts();
   }
@@ -59,6 +59,7 @@ export class ProductListComponent {
 
   chageProductList(list: Product[]) {
     this.products = list;
+    this.pageSize = 10;
     this.length = this.products.length;
     this.showProducts();
   }
@@ -88,23 +89,19 @@ export class ProductListComponent {
   }
 
   addProductToCart(product: Product) {
-    
-    if(localStorage.getItem('listP')){
+    if (localStorage.getItem("listP")) {
       try {
-        let aux = JSON.parse(localStorage.getItem('listP')!);
+        let aux = JSON.parse(localStorage.getItem("listP")!);
         aux.push(product);
 
-        localStorage.setItem('listP', JSON.stringify(aux));
+        localStorage.setItem("listP", JSON.stringify(aux));
       } catch (error) {
-        console.log("hubo un error")
+        console.log("hubo un error");
       }
-      
-    } else{
-
-      let aux: Product[] = []
+    } else {
+      let aux: Product[] = [];
       aux.push(product);
-      localStorage.setItem('listP', JSON.stringify(aux));
+      localStorage.setItem("listP", JSON.stringify(aux));
     }
-    
   }
 }
