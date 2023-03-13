@@ -3,6 +3,7 @@ const { handleHttpError } = require("../utils/handleError.util");
 const {
   getCategories,
   getSubcategories,
+  getSubcategoriesByCategoriesDB,
 } = require("../sentencesSQL/categories.sql");
 
 /**
@@ -41,7 +42,27 @@ const getAllSubCategories = async (req, res) => {
   }
 };
 
+/**
+ * obtener todas las SubCategorias de una Categoria
+ * @param req idCategoria padre
+ * @param res  categorias
+ */
+const getSubCategoriesByCategory = async (req, res) => {
+  try {
+    let idFatherCategory = req.params.idFatherCategory;
+    let result = await getSubcategoriesByCategoriesDB(idFatherCategory);
+    if (result == null) {
+      res.json([]);
+    } else {
+      res.json(result);
+    }
+  } catch (error) {
+    handleHttpError(res, "ErrorGetSubCategoriesByCategory");
+  }
+};
+
 module.exports = {
   getAllCategories,
   getAllSubCategories,
+  getSubCategoriesByCategory,
 };

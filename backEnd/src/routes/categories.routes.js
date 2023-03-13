@@ -8,5 +8,9 @@ const categoriesController = require("../controllers/categories.controller");
 module.exports = () => {
   router.get("/", categoriesController.getAllCategories);
   router.get("/subCategorias", categoriesController.getAllSubCategories);
+  router.get(
+    "/subCategorias/:idFatherCategory",
+    categoriesController.getSubCategoriesByCategory
+  );
   return router;
 };

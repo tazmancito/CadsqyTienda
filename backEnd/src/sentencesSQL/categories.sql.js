@@ -14,4 +14,18 @@ const getSubcategories = async () => {
   return result;
 };
 
-module.exports = { getCategories, getSubcategories };
+const getSubcategoriesByCategoriesDB = async (categoryFatherId) => {
+  const sentence =
+    "SELECT * FROM `Categoria` WHERE CategoriaPadreId = " +
+    categoryFatherId +
+    ";";
+  let result = await cdb.query(sentence);
+
+  return result;
+};
+
+module.exports = {
+  getCategories,
+  getSubcategories,
+  getSubcategoriesByCategoriesDB,
+};
