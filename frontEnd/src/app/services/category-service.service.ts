@@ -12,12 +12,20 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
+  getCategory(id: number) {
+    return this.http.get<Category[]>(`${this.baseURL}/categoria/${id}`);
+  }
+
   getCategories() {
     return this.http.get<Category[]>(this.baseURL);
   }
   
   getSubCateries(){
     return this.http.get<Category[]>(`${this.baseURL}/subCategorias`)
+  }
+
+  getSubCateriesByCategory(categoryFatherId: number){
+    return this.http.get<Category[]>(`${this.baseURL}/subCategorias/${categoryFatherId}`)
   }
 
   savePieceCategory(category: any) {

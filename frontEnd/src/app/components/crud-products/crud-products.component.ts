@@ -69,7 +69,6 @@ export class CrudProductsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        console.log(result);
         this._productoService
           .updateProduct(result, result.ProductosId)
           .subscribe(() => {
