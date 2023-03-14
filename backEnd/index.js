@@ -66,7 +66,7 @@ const headersFooter = require("./src/routes/headerFooters.routes");
 const linksHeaderFooter = require("./src/routes/linksheaderFooters.routes");
 
 //nombre de la api
-const apiname = "api";
+const apiname = "tienda";
 
 app.use(function (req, res, next) {
   req.io = io;
