@@ -2,3 +2,4 @@ backEnd/node_modules/
 frontEnd/node_modules/
 frontEnd/dist/
 frontEnd/.angular/cache/
+.angular
