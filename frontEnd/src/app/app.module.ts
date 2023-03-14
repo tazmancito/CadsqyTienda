@@ -33,6 +33,7 @@ import { CustomPaginatorIntl } from "./Customs/CustomPaginatorIntl";
 import { CartComponent } from "./components/cart/cart.component";
 import { CrudProductsComponent } from "./components/crud-products/crud-products.component";
 import { ProductDialogComponent } from "./components/product-dialog/product-dialog.component";
+import { CarouselComponent } from './components/carousel/carousel.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { ProductDialogComponent } from "./components/product-dialog/product-dial
     CartComponent,
     CrudProductsComponent,
     ProductDialogComponent,
+    CarouselComponent,
   ],
   imports: [
     BrowserModule,
