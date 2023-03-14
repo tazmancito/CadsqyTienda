@@ -1,5 +1,13 @@
 const cdb = require("../config/conexion");
 
+const getCategoryDB = async (categoryId) => {
+  const sentence =
+    "SELECT * FROM `Categoria` WHERE CategoriaId =" + categoryId + ";";
+  let result = await cdb.query(sentence);
+
+  return result;
+};
+
 const getCategories = async () => {
   const sentence = "SELECT * FROM `Categoria` WHERE EsPadre = true;";
   let result = await cdb.query(sentence);
@@ -28,4 +36,5 @@ module.exports = {
   getCategories,
   getSubcategories,
   getSubcategoriesByCategoriesDB,
+  getCategoryDB,
 };

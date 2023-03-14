@@ -4,6 +4,7 @@ const {
   getCategories,
   getSubcategories,
   getSubcategoriesByCategoriesDB,
+  getCategoryDB,
 } = require("../sentencesSQL/categories.sql");
 
 /**
@@ -61,8 +62,28 @@ const getSubCategoriesByCategory = async (req, res) => {
   }
 };
 
+/**
+ * obtener la categoria especifica
+ * @param req categoriaID
+ * @param res  categorias
+ */
+const getCategory = async (req, res) => {
+  try {
+    let id = req.params.id;
+    let result = await getCategoryDB(id);
+    if (result == null) {
+      res.json([]);
+    } else {
+      res.json(result);
+    }
+  } catch (error) {
+    handleHttpError(res, "ErrorGetCategory");
+  }
+};
+
 module.exports = {
   getAllCategories,
   getAllSubCategories,
   getSubCategoriesByCategory,
+  getCategory,
 };
