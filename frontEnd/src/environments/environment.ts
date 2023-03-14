@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  API_URL:'http://localhost:3000/api',
+  API_URL:'http://localhost:3000/tienda',
   title:'CADS PROYECTOS',
   SOCKET_ENDPOINT: 'http://localhost:3000'
 };
