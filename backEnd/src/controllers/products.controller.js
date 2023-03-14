@@ -99,7 +99,6 @@ const getProductById = async (req, res) => {
     if (result == null) {
       res.json([]);
     } else {
-      console.log(result);
       res.json(result);
     }
   } catch (error) {
