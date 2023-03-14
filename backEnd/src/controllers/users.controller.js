@@ -87,14 +87,18 @@ const enabledUser = async (req, res) => {
 const getUserInfo = async (req, res) => {
   try {
     let tokenData = await verifyToken(req.body.token);
-    const result = await getInfo(tokenData.userId);
-    if (result.length > 0) {
-      res.json(result[0]);
+    if (tokenData) {
+      const result = await getInfo(tokenData.userId);
+      if (result.length > 0) {
+        res.json(result[0]);
+      } else {
+        res.json({ message: "error al obtener la información" });
+      }
     } else {
-      res.json({ message: "error al obtener la información" });
+      handleHttpError(res, "ErrorInvalidToken");
     }
   } catch (error) {
-    console.log(error);
+    handleHttpError(res, "ErrorGetInfoUser");
   }
 };
 
