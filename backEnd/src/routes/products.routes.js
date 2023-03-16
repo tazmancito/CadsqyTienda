@@ -9,7 +9,7 @@ const { getPathFile } = require("../utils/handleGetPathFile");
 
 const productController = require("../controllers/products.controller");
 
-const imgProducts = "../" + process.env.CARPETAPRINCIPAL + "/assets/img/products";
+const pathImagesFiles = "../" + process.env.CARPETAPRINCIPAL + "/assets/img/products";
 
 module.exports = () => {
   router.get("/buscar-productos/:word", productController.getProductByName);
@@ -21,5 +21,7 @@ module.exports = () => {
   router.post("/", productController.addProduct);
   router.put("/:id", productController.updateProduct);
   router.delete("/:id", productController.deleteProduct);
+
+  router.post("/uploadImage", setRouteFile(pathImagesFiles), upload, getPathFile);
   return router;
 };

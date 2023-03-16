@@ -33,27 +33,27 @@ CREATE TABLE Usuarios (
     FOREIGN KEY (RolId) REFERENCES Roles(RolId)
 );
 
-CREATE TABLE Categoria (
-  CategoriaId int NOT NULL AUTO_INCREMENT,
+CREATE TABLE Categorias (
+  CategoriasId int NOT NULL AUTO_INCREMENT,
   Nombre varchar(255)  NOT NULL,
-  CategoriaPadreId int,
+  CategoriasPadreId int,
   EsPadre BOOLEAN NOT NULL,
-  PRIMARY KEY (CategoriaId),
-  FOREIGN KEY (CategoriaPadreId) REFERENCES Categoria(CategoriaId)
+  PRIMARY KEY (CategoriasId),
+  FOREIGN KEY (CategoriasPadreId) REFERENCES Categorias(CategoriasId)
 );
 
 CREATE TABLE Productos (
   ProductosId int NOT NULL AUTO_INCREMENT,
-  CategoriaId int NOT NULL,
+  CategoriasId int NOT NULL,
   nombre varchar(255)  NOT NULL,
   descripcion text NOT NULL,
   img varchar(255)  NOT NULL,
   precio float NOT NULL,
   PRIMARY KEY (ProductosId),
-  FOREIGN KEY (CategoriaId) REFERENCES Categoria(CategoriaId)
+  FOREIGN KEY (CategoriasId) REFERENCES Categorias(CategoriasId)
 );
 
-INSERT INTO Productos (CategoriaId,nombre, descripcion, img, precio) VALUES 
+INSERT INTO Productos (CategoriasId,nombre, descripcion, img, precio) VALUES 
 ('1','Sneakers', 'zapatillas', 'https://via.placeholder.com/200x200', '22');
 
 -- modificaciones iniciales
@@ -82,33 +82,29 @@ INSERT INTO Productos (CategoriaId,nombre, descripcion, img, precio) VALUES
  (9161532, 9161527, 'Jessit', 'avatar', 'Patiño', '1978/07/01', 'draco2287@gmail.com', '$2a$10$Q2jakqF8mw3jUbYPh3WhYepCWVrCqcFGJ4X3WMd5iaLZv8oVv60eO', 1),
  (9161533, 9161527, 'Erik', 'avatar', 'Quiroga', '1978/07/01', 'cads@cadsqy.com', '$2a$10$cLYkWfBJke8SqL.voL.nJuCGwrxHo6TFk0kbyuYvoUzqtS9WTzRea', 1);
 
-
-
-
-SELECT * FROM `Productos` WHERE nombre like '%palabrabuscada%';
-
-SELECT * FROM ((Productos LEFT JOIN Categoria on (Categoria.CategoriaId = Productos.CategoriaId))) WHERE Categoria.nombre = 'ropa';
-
-
 -- eliminar tablas 
 
 DROP TABLE Productos;
-DROP TABLE Categoria;
+DROP TABLE Categorias;
 DROP TABLE Permisos;
 DROP TABLE Usuarios;
 DROP Table Roles;
 
 
--- buscar productos por categoria y subcategoria
+-- buscar productos por Categorias y subCategorias
 
-SELECT * 
-FROM Productos 
-WHERE CategoriaId IN ( SELECT CategoriaId 
-                        FROM Categoria 
-                        WHERE Categoria.CategoriaPadreId IN (
-                          SELECT CategoriaId 
-                          FROM Categoria 
-                          WHERE Categoria.Nombre = 'Electrónica') ) OR CategoriaId IN (
-                            SELECT CategoriaId 
-                            FROM Categoria 
-                            WHERE Categoria.Nombre = 'Electrónica') 
+-- SELECT * 
+-- FROM Productos 
+-- WHERE CategoriasId IN ( SELECT CategoriasId 
+--                         FROM Categorias 
+--                         WHERE Categorias.CategoriasPadreId IN (
+--                           SELECT CategoriasId 
+--                           FROM Categorias 
+--                           WHERE Categorias.Nombre = 'Electrónica') ) OR CategoriasId IN (
+--                             SELECT CategoriasId 
+--                             FROM Categorias 
+--                             WHERE Categorias.Nombre = 'Electrónica') 
+
+-- SELECT * FROM `Productos` WHERE nombre like '%palabrabuscada%';
+
+--- SELECT * FROM ((Productos LEFT JOIN Categorias on (Categorias.CategoriasId = Productos.CategoriasId))) WHERE Categorias.nombre = 'ropa';

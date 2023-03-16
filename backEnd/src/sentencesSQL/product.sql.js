@@ -14,7 +14,7 @@ const updateProductDB = async (data, id) => {
   let result;
   let values = Object.values(data);
 
-  let sentence = `UPDATE ${tableName} SET ProductosId=?, CategoriaId=?, nombre=?, descripcion=?, img=?, precio=? WHERE ProductosId=?`;
+  let sentence = `UPDATE ${tableName} SET ProductosId=?, CategoriasId=?, nombre=?, descripcion=?, img=?, precio=? WHERE ProductosId=?`;
   result = cdb.query(sentence, [...values, id]);
   return result;
 };
@@ -23,7 +23,7 @@ const addProductDB = async (data) => {
   let result;
   const values = Object.values(data);
 
-  const sentence = `INSERT INTO ${tableName} (CategoriaId, nombre, descripcion, img, precio) VALUES(?, ?, ?, ?, ?)`;
+  const sentence = `INSERT INTO ${tableName} (CategoriasId, nombre, descripcion, img, precio) VALUES(?, ?, ?, ?, ?)`;
   result = cdb.query(sentence, values);
   return result;
 };
@@ -49,12 +49,12 @@ const getProductsByOrderAleatory = async () => {
   return result;
 };
 
-const getProductsByCategory = async (categoria) => {
+const getProductsByCategory = async (Categorias) => {
   const sentence =
-    "SELECT * FROM Productos WHERE CategoriaId IN ( SELECT CategoriaId FROM Categoria WHERE Categoria.CategoriaPadreId IN (SELECT CategoriaId FROM Categoria WHERE Categoria.Nombre = '" +
-    categoria +
-    "') ) OR CategoriaId IN (SELECT CategoriaId FROM Categoria WHERE Categoria.Nombre = '" +
-    categoria +
+    "SELECT * FROM Productos WHERE CategoriasId IN ( SELECT CategoriasId FROM Categorias WHERE Categorias.CategoriasPadreId IN (SELECT CategoriasId FROM Categorias WHERE Categorias.Nombre = '" +
+    Categorias +
+    "') ) OR CategoriasId IN (SELECT CategoriasId FROM Categorias WHERE Categorias.Nombre = '" +
+    Categorias +
     "') ";
   let result = await cdb.query(sentence);
 
