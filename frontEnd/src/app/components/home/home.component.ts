@@ -27,20 +27,20 @@ export class HomeComponent {
 
     categories.forEach((category) => {
       let aux: Category = {
-        CategoryId: category.CategoriaId,
+        CategoryId: category.CategoriasId,
         Nombre: category.Nombre,
         categories: [],
       };
-      mapCategorias.set(category.CategoriaId, aux);
+      mapCategorias.set(category.CategoriasId, aux);
     });
 
     subCategories.forEach((subCategory) => {
       let aux: Category = {
-        CategoryId: subCategory.CategoriaId,
+        CategoryId: subCategory.CategoriasId,
         Nombre: subCategory.Nombre,
         categories: [],
       };
-      mapCategorias.get(subCategory.CategoriaPadreId)?.categories?.push(aux);
+      mapCategorias.get(subCategory.CategoriasPadreId)?.categories?.push(aux);
     });
 
     let result = Array.from(mapCategorias.values());
