@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index"
+    "start": "nodemon index ",
+    "dev": "nodemon --config env.development.json index",
+    "prod": "nodemon --config env.production.json index"
   },
   "keywords": [],
   "author": "",
