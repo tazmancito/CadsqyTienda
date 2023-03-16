@@ -45,4 +45,11 @@ export class ProductService {
   delteteProduct(productId: number) {
     return this.http.delete(`${this.baseURL}/${productId}`);
   }
+
+  uploadFiles(formData: FormData) {
+    return this.http.post(`${this.baseURL}/uploadImage`, formData, {
+      reportProgress: true,
+      observe: "events",
+    });
+  }
 }

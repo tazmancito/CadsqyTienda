@@ -41,9 +41,26 @@
         [value]="category.CategoriaId"
         >{{ category.Nombre }}</mat-option
       >
-      
     </mat-select>
   </mat-form-field>
+  <img class="img-fluid" *ngIf="imageUrl" [src]="imageUrl" alt="Imagen cargada" />
+  <form [formGroup]="formGroupImages">
+    <div class="form-group mt-2">
+      <label>Imagen del producto</label>
+      <input
+        class="form-control my-2"
+        (change)="onFileSelected($event)"
+        formControlName="imgMain"
+        type="file"
+        accept=".gif .jpg .jpeg .png .gif"
+        formControlName="imgMain"
+      />
+    </div>
+    <Span *ngIf="message === 'Upload success.'">imagen subida correctamente</Span>
+    
+
+    <button mat-raised-button color="primary" (click)="onUpload()">Subir imagen</button>
+  </form>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancelar</button>

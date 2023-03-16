@@ -6,6 +6,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FormsModule } from "@angular/forms";
+import { ReactiveFormsModule } from '@angular/forms';
 import { NgOptimizedImage } from "@angular/common";
 
 import { MatPaginatorIntl } from "@angular/material/paginator";
@@ -52,6 +53,7 @@ import { CarouselComponent } from './components/carousel/carousel.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     NgOptimizedImage,
 
     MatListModule,
