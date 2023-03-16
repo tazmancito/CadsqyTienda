@@ -51,7 +51,7 @@ CREATE TABLE Productos (
   precio float NOT NULL,
   PRIMARY KEY (ProductosId),
   FOREIGN KEY (CategoriaId) REFERENCES Categoria(CategoriaId)
-)
+);
 
 INSERT INTO Productos (CategoriaId,nombre, descripcion, img, precio) VALUES 
 ('1','Sneakers', 'zapatillas', 'https://via.placeholder.com/200x200', '22');
