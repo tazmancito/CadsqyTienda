@@ -1,4 +1,8 @@
 backEnd/node_modules/
+backEnd/.env
+backEnd/env.development.json
+backEnd/env.production.json
+almacenes.cadsqy.com/
 frontEnd/node_modules/
 frontEnd/dist/
 frontEnd/.angular/cache/
