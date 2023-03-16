@@ -107,6 +107,13 @@ const getInfo = async (id) => {
   }
 };
 
+const deleteUserDB = async (id) => {
+    let result;
+    let sentence = `DELETE FROM Usuarios WHERE UsuarioId = ${id};`;
+    result = await cdb.query(sentence);
+    return result;
+};
+
 module.exports = {
   createUser,
   getUserByEmail,
@@ -114,4 +121,5 @@ module.exports = {
   updateRol,
   updateState,
   getInfo,
+  deleteUserDB,
 };

@@ -4,12 +4,8 @@ const {
   validatorLogin,
   validatorRegister,
 } = require("../Validators/auth.validator");
-const {
-  registerUser,
-  loginUser,
-  verifyUserToken,
-  getUserInfo
-} = require("../controllers/auth.controller");
+
+const authController = require("../controllers/auth.controller");
 
 const createFile = require("../utils/handleFileCreator.util");
 
@@ -20,14 +16,10 @@ const createFile = require("../utils/handleFileCreator.util");
  */
 module.exports = () => {
   //se oculto la ruta para que no se puedan hacer registros
-  router.post("/register", validatorRegister, createFile, registerUser);
-  // router.post("/register", validatorRegister, createFile, registerUser);
-
-  /**
-   * ruta para login
-   */
-  router.post("/login", validatorLogin, loginUser);
-  router.post("/validar", verifyUserToken);
-  router.post("/infoUsuario", getUserInfo);
+  router.post("/register", validatorRegister, createFile, authController.registerUser);
+  router.post("/login", validatorLogin, authController.loginUser);
+  router.post("/validar", authController.verifyUserToken);
+  router.post("/infoUsuario", authController.getUserInfo);
+  router.delete("/:id", authController.deleteUser);
   return router;
 };

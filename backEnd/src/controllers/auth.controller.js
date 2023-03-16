@@ -9,6 +9,7 @@ const {
   getUserByEmail,
   getUserById,
   getInfo,
+  deleteUserDB,
 } = require("../sentencesSQL/user.sql");
 const emailer = require("../config/email");
 
@@ -136,4 +137,21 @@ const getUserInfo = async (req, res) => {
   }
 };
 
-module.exports = { registerUser, loginUser, verifyUserToken, getUserInfo };
+const deleteUser = async (req, res) => {
+  try {
+    let id = req.params.id;
+    console.log(`------------>${id}`)
+    let result = await deleteUserDB(id);
+    res.json({ message: "eliminado con exito" });
+  } catch (error) {
+    handleHttpError(res, "ERROR_DELETE_USER");
+  }
+};
+
+module.exports = {
+  registerUser,
+  loginUser,
+  verifyUserToken,
+  getUserInfo,
+  deleteUser,
+};
