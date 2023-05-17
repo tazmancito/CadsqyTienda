@@ -9,7 +9,7 @@ const morganBody = require("morgan-body");
 
 const { loggerStream } = require("./src/utils/handleLoger");
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3003;
 
 // SERVIDOR
 const app = express();
@@ -61,6 +61,8 @@ const authRoutes = require("./src/routes/auth.routes");
 const categoriesRoutes = require("./src/routes/categories.routes");
 const productRoutes = require("./src/routes/products.routes");
 
+const cartRoutes = require("./src/routes/cart.routes");
+
 const infoFooter = require("./src/routes/infoFooter.routes");
 const headersFooter = require("./src/routes/headerFooters.routes");
 const linksHeaderFooter = require("./src/routes/linksheaderFooters.routes");
@@ -83,6 +85,8 @@ app.use(`/${apiname}/roles`, rolsRoutes());
 
 app.use(`/${apiname}/productos`, productRoutes());
 app.use(`/${apiname}/categorias`, categoriesRoutes());
+
+app.use(`/${apiname}/carts`, cartRoutes());
 
 app.use(`/${apiname}/infofooter`, infoFooter());
 app.use(`/${apiname}/encabezadospiepagina`, headersFooter());

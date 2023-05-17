@@ -1,11 +1,25 @@
 const { handleHttpError } = require("../utils/handleError.util");
 
-const {
-  getCategories,
-  getSubcategories,
-  getSubcategoriesByCategoriesDB,
-  getCategoryDB,
-} = require("../sentencesSQL/categories.sql");
+const sqlSentences = require("../sentencesSQL/categories.sql");
+
+/**
+ * obtener una categoria por su nombre
+ * @param req
+ * @param res  categorias
+ */
+const getCategoryByName = async (req, res) => {
+  try {
+    let nombre = req.params.nombre;
+    let result = await sqlSentences.getCategoryByNameDB(nombre);
+    if (result == null) {
+      res.json([]);
+    } else {
+      res.json(result);
+    }
+  } catch (error) {
+    handleHttpError(res, "ErrorGetCategory");
+  }
+};
 
 /**
  * obtener todas las categorias
@@ -14,7 +28,7 @@ const {
  */
 const getAllCategories = async (req, res) => {
   try {
-    let result = await getCategories();
+    let result = await sqlSentences.getAllCategories();
     if (result == null) {
       res.json([]);
     } else {
@@ -32,7 +46,7 @@ const getAllCategories = async (req, res) => {
  */
 const getAllSubCategories = async (req, res) => {
   try {
-    let result = await getSubcategories();
+    let result = await sqlSentences.getSubcategories();
     if (result == null) {
       res.json([]);
     } else {
@@ -51,7 +65,9 @@ const getAllSubCategories = async (req, res) => {
 const getSubCategoriesByCategory = async (req, res) => {
   try {
     let idFatherCategory = req.params.idFatherCategory;
-    let result = await getSubcategoriesByCategoriesDB(idFatherCategory);
+    let result = await sqlSentences.getSubcategoriesByCategoriesDB(
+      idFatherCategory
+    );
     if (result == null) {
       res.json([]);
     } else {
@@ -70,7 +86,7 @@ const getSubCategoriesByCategory = async (req, res) => {
 const getCategory = async (req, res) => {
   try {
     let id = req.params.id;
-    let result = await getCategoryDB(id);
+    let result = await sqlSentences.getCategoryDB(id);
     if (result == null) {
       res.json([]);
     } else {
@@ -87,4 +103,5 @@ module.exports = {
   getAllSubCategories,
   getSubCategoriesByCategory,
   getCategory,
+  getCategoryByName,
 };

@@ -1,34 +1,53 @@
-.carousel {
-    position: relative;
-    width: 500px;
-    height: 300px;
-  }
-  
-  .carousel img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(0deg) translateX(100px) translateY(250px);
-    animation: spin 15s linear infinite;
-    -webkit-transform: translate(-50%, -50%) rotate(0deg) translateX(100px) translateY(250px);
-    -moz-transform: translate(-50%, -50%) rotate(0deg) translateX(100px) translateY(250px);
-    -ms-transform: translate(-50%, -50%) rotate(0deg) translateX(100px) translateY(250px);
-    -o-transform: translate(-50%, -50%) rotate(0deg) translateX(100px) translateY(250px);
+.main {
+  overflow: hidden;
+  display: flex;
+  background: #070716;
+  perspective: 1000px;
+  transform-style: preserve-3d;
 }
-  
-  @keyframes spin {
-    from {
-      transform: translate(-50%, -50%) rotate(0deg) translateX(100px) translateY(250px);
-      -webkit-transform: translate(-50%, -50%) rotate(0deg) translateX(100px) translateY(250px);
-      -moz-transform: translate(-50%, -50%) rotate(0deg) translateX(100px) translateY(250px);
-      -ms-transform: translate(-50%, -50%) rotate(0deg) translateX(100px) translateY(250px);
-      -o-transform: translate(-50%, -50%) rotate(0deg) translateX(100px) translateY(250px);
+
+#drag,
+#spin {
+  position: relative;
+  display: flex;
+  margin: auto;
+  transform-style: preserve-3d;
+  transform: rotate(-10deg);
+  -webkit-transform: rotate(-10deg);
+  -moz-transform: rotate(-10deg);
+  -ms-transform: rotate(-10deg);
+  -o-transform: rotate(-10deg);
 }
-    to {
-      transform: translate(-50%, -50%) rotate(360deg) translateX(100px) translateY(250px);
-      -webkit-transform: translate(-50%, -50%) rotate(360deg) translateX(100px) translateY(250px);
-      -moz-transform: translate(-50%, -50%) rotate(360deg) translateX(100px) translateY(250px);
-      -ms-transform: translate(-50%, -50%) rotate(360deg) translateX(100px) translateY(250px);
-      -o-transform: translate(-50%, -50%) rotate(360deg) translateX(100px) translateY(250px);
+
+#drag img {
+  transform-style: preserve-3d;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  line-height: 200px;
+  text-align: center;
+  box-shadow: 0 0 8px #fff;
+  -webkit-box-reflect: below 10px
+    linear-gradient(transparent, transparent, #0005);
 }
-  }
+
+#drag img:hover {
+  box-shadow: 0 0 15px #fffd;
+  -webkit-box-reflect: below 10px
+    linear-gradient(transparent, transparent, #0007);
+}
+
+#ground {
+  width: 900px;
+  height: 900px;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%) rotateX(90deg);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+}

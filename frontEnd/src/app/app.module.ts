@@ -6,7 +6,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FormsModule } from "@angular/forms";
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from "@angular/forms";
 import { NgOptimizedImage } from "@angular/common";
 
 import { MatPaginatorIntl } from "@angular/material/paginator";
@@ -26,6 +26,8 @@ import { CdkTreeModule } from "@angular/cdk/tree";
 import { MatTreeModule } from "@angular/material/tree";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatSelectModule } from "@angular/material/select";
+import { ScrollingModule } from "@angular/cdk/scrolling";
+
 
 import { ProductListComponent } from "./components/product-list/product-list.component";
 import { ProductDetailComponent } from "./components/product-detail/product-detail.component";
@@ -34,7 +36,8 @@ import { CustomPaginatorIntl } from "./Customs/CustomPaginatorIntl";
 import { CartComponent } from "./components/cart/cart.component";
 import { CrudProductsComponent } from "./components/crud-products/crud-products.component";
 import { ProductDialogComponent } from "./components/product-dialog/product-dialog.component";
-import { CarouselComponent } from './components/carousel/carousel.component';
+import { CarouselComponent } from "./components/carousel/carousel.component";
+
 
 @NgModule({
   declarations: [
@@ -73,6 +76,7 @@ import { CarouselComponent } from './components/carousel/carousel.component';
     MatTreeModule,
     MatDialogModule,
     MatSelectModule,
+    ScrollingModule
   ],
   providers: [{ provide: MatPaginatorIntl, useClass: CustomPaginatorIntl }],
   bootstrap: [AppComponent],

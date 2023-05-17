@@ -1,22 +1,30 @@
+<!-- <app-carousel></app-carousel> -->
 <nav
   class="navbar navbar-expand-lg text-white"
   style="background-color: #201e1e"
 >
-  <button mat-icon-button (click)="drawer.toggle()">
+  <button mat-icon-button (click)="categorias.toggle()">
     <mat-icon>menu</mat-icon>
   </button>
   <span class="mx-2">CADS</span>
-  <form class="d-flex mx-2 w-100 justify-content-between">
-    <input type="text" name="search" placeholder="Buscar.." />
-
-    <button mat-icon-button routerLink="carrito">
+  <div class="d-flex m-2 w-100 justify-content-between">
+    <div class="d-flex w-100">
+      <input
+        [(ngModel)]="nameProduct"
+        type="text"
+        name="search"
+        placeholder="Buscar.."
+        (keydown)="onKeyDown($event)"
+      />
+    </div>
+    <button mat-icon-button class="mx-2" (click)="toggleDrawerCarrito()">
       <mat-icon
         ><span class="material-symbols-outlined">
           shopping_cart
         </span></mat-icon
       >
     </button>
-  </form>
+  </div>
 </nav>
 
 <mat-drawer-container
@@ -24,33 +32,35 @@
   autosize
   [hasBackdrop]="true"
 >
-  <mat-drawer #drawer class="p-4 text-white" mode="side">
+  <mat-drawer
+    #categorias
+    class="p-4 text-white"
+    mode="side"
+    position="start"
+    opened="false"
+  >
     <mat-tree
       [dataSource]="dataSource"
       [treeControl]="treeControl"
       class="example-tree"
     >
-      <!-- This is the tree node template for leaf nodes -->
-      <!-- There is inline padding applied to this node using styles.
-        This padding value depends on the mat-icon-button width. -->
       <mat-tree-node
         *matTreeNodeDef="let node"
         matTreeNodeToggle
         style="border-bottom: 1px solid #e0e6ef"
       >
         <a
-          [routerLink]="['/categoria', node.Nombre]"
-          (click)="drawer.toggle()"
-          >{{ node.Nombre }}</a
+          [routerLink]="['/categoria', node.name]"
+          (click)="toggleDrawerMenus(); printNode(node)"
+          >{{ node.name }}</a
         >
       </mat-tree-node>
-      <!-- This is the tree node template for expandable nodes -->
       <mat-nested-tree-node *matTreeNodeDef="let node; when: hasSubmenu">
         <div class="mat-tree-node" style="border-bottom: 1px solid #e0e6ef">
           <a
-            [routerLink]="['/categoria', node.Nombre]"
-            (click)="drawer.toggle()"
-            >{{ node.Nombre }}</a
+            [routerLink]="['/categoria', node.name]"
+            (click)="toggleDrawerMenus(); printNode(node)"
+            >{{ node.name }}</a
           >
           <button mat-icon-button matTreeNodeToggle>
             <mat-icon class="mat-icon-rtl-mirror">
@@ -60,8 +70,6 @@
             </mat-icon>
           </button>
         </div>
-        <!-- There is inline padding applied to this div using styles.
-              This padding value depends on the mat-icon-button width.  -->
         <div
           [class.example-tree-invisible]="!treeControl.isExpanded(node)"
           role="group"
@@ -72,11 +80,39 @@
     </mat-tree>
   </mat-drawer>
 
+  <mat-drawer
+    #carrito
+    class="text-dark"
+    mode="side"
+    position="end"
+    opened="false"
+  >
+    <div class="d-flex justify-content-end">
+      <button mat-icon-button (click)="toggleDrawerCarrito()">
+        <mat-icon
+          ><span class="material-symbols-outlined">
+            arrow_forward_ios
+          </span></mat-icon
+        >
+      </button>
+    </div>
+    <app-cart></app-cart>
+  </mat-drawer>
+
   <div class="bg-light">
-    <!-- <app-product-list ></app-product-list> -->
+    <nav aria-label="breadcrumb bg-dark" *ngIf="routeMap.length > 1">
+      <ol class="breadcrumb m-2 ">
+        <li class="breadcrumb-item" *ngFor="let category of routeMap; let i = index; last as isLast">
+          <a *ngIf="!isLast" [routerLink]="['/categoria', category]">{{category}}</a>
+          <a *ngIf="isLast"class="text-secondary" [routerLink]="['/categoria', category]">{{category}}</a>
+        </li>
+      </ol>
+    </nav>
     <router-outlet></router-outlet>
+    <!-- <app-product-detail></app-product-detail> -->
   </div>
 </mat-drawer-container>
+
 <footer class="footer mt-auto py-3 bg-dark text-white">
   <div class="container">
     <div class="row">

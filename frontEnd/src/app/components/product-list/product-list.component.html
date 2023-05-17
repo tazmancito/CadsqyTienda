@@ -1,6 +1,30 @@
+<div class="categoryCards">
+  <mat-card
+    *ngIf="category"
+    class="product shadow bg-body-tertiary rounded text-center"
+  >
+    <mat-card-title class="fs-2 text-black my-2">{{
+      category.Nombre
+    }}</mat-card-title>
+    <mat-card-content>
+      <img mat-card-image src="https://via.placeholder.com/200x200" />
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card
+    class="product shadow bg-body-tertiary rounded text-center"
+    *ngFor="let subCategory of subCategories"
+  >
+    <mat-card-title class="fs-3 text-black my-2">{{
+      subCategory.Nombre
+    }}</mat-card-title>
+    <mat-card-content>
+      <img mat-card-image src="https://via.placeholder.com/200x200" />
+    </mat-card-content>
+  </mat-card>
+</div>
 <mat-paginator
   #paginator
-
   (page)="handlePageEvent($event)"
   [length]="length"
   [pageSize]="pageSize"
@@ -10,10 +34,15 @@
   aria-label="Select page"
 >
 </mat-paginator>
-<div class="products">
-  <mat-card class="product shadow p-3 mb-5 bg-body-tertiary rounded" *ngFor="let product of productsShowing">
+<div class="products" id="myElement">
+  <mat-card
+    class="product shadow p-3 mb-5 bg-body-tertiary rounded"
+    *ngFor="let product of productsShowing"
+  >
     <img mat-card-image src="{{ product.img }}" />
-    <mat-card-title class="mx-1 text-black">{{ product.nombre }}</mat-card-title>
+    <mat-card-title class="mx-1 text-black">{{
+      product.nombre
+    }}</mat-card-title>
     <mat-card-subtitle class="text-black m-1 d-flex justify-content-end"
       >{{ product.precio }} Bs</mat-card-subtitle
     >
@@ -41,6 +70,6 @@
   [showFirstLastButtons]="true"
   [pageSizeOptions]="pageSizeOptions"
   [pageIndex]="pageIndex"
-  *ngIf='productsShowing.length > 10'
+  *ngIf="productsShowing.length > 10"
 >
 </mat-paginator>

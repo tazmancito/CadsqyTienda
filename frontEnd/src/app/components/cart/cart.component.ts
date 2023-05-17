@@ -13,24 +13,28 @@ export class CartComponent implements OnInit {
 
   constructor() {}
 
+  displayedColumns: string[] = ['producto', 'precio', 'cantidad', 'seleccionar'];
+  dataSource:Product[] =[];
+
   ngOnInit(): void {
     this.loadProducts();
   }
 
   loadProducts() {
     try {
-      let aux = JSON.parse(localStorage.getItem("listP")!);
+      let aux = JSON.parse(localStorage.getItem("carrito")!);
 
       this.products = aux.map((p: any) => {
         return {
-          ProductId: p.ProductId,
-          CategoriaId: p.CategoriaId,
-          nombre: p.nombre,
-          descripcion: p.descripcion,
-          img: p.img,
-          precio: p.precio,
+          ProductId: p.clave.ProductId,
+          CategoriaId: p.clave.CategoriaId,
+          nombre: p.clave.nombre,
+          descripcion: p.clave.descripcion,
+          img: p.clave.img,
+          precio: p.clave.precio,
         } as Product;
       });
+      this.dataSource = this.products;
     } catch (error) {
       console.log("hubo un error" + error);
     }

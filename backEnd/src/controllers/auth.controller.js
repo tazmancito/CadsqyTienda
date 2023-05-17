@@ -140,7 +140,6 @@ const getUserInfo = async (req, res) => {
 const deleteUser = async (req, res) => {
   try {
     let id = req.params.id;
-    console.log(`------------>${id}`)
     let result = await deleteUserDB(id);
     res.json({ message: "eliminado con exito" });
   } catch (error) {

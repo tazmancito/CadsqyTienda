@@ -3,8 +3,9 @@ const cdb = require("../config/conexion");
 const tableName = "Productos";
 
 const searchProducts = async (word) => {
-  const sentence =
-    "SELECT * FROM Productos WHERE nombre like '%" + word + "%';";
+  // const sentence =
+  //   `SELECT * FROM ${tableName} WHERE nombre like '%${word}%'`;
+    let sentence =`SELECT * FROM ${tableName} WHERE nombre REGEXP '[[:<:]]${word}[[:>:]]'`;
   let result = await cdb.query(sentence);
 
   return result;

@@ -53,6 +53,15 @@ CREATE TABLE Productos (
   FOREIGN KEY (CategoriasId) REFERENCES Categorias(CategoriasId)
 );
 
+CREATE TABLE Cart (
+    CartId INT AUTO_INCREMENT,
+    deviceID varchar(255) NOT NULL,
+    ProductosId INT NOT NULL,
+    cantidad INT NOT NULL,
+    PRIMARY KEY (CartId),
+    FOREIGN KEY (ProductosId) REFERENCES Productos(ProductosId)
+);
+
 INSERT INTO Productos (CategoriasId,nombre, descripcion, img, precio) VALUES 
 ('1','Sneakers', 'zapatillas', 'https://via.placeholder.com/200x200', '22');
 

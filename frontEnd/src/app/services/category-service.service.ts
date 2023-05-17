@@ -4,13 +4,16 @@ import { environment } from "@enviroment/environment";
 import { Category } from "@models/category";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class CategoryService {
-
   private baseURL: string = `${environment.API_URL}/categorias`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
+
+  getCategoryByName(nombre: string) {
+    return this.http.get<Category[]>(`${this.baseURL}/cat/${nombre}`);
+  }
 
   getCategory(id: number) {
     return this.http.get<Category[]>(`${this.baseURL}/categoria/${id}`);
@@ -19,13 +22,15 @@ export class CategoryService {
   getCategories() {
     return this.http.get<Category[]>(this.baseURL);
   }
-  
-  getSubCateries(){
-    return this.http.get<Category[]>(`${this.baseURL}/subCategorias`)
+
+  getSubCateries() {
+    return this.http.get<any[]>(`${this.baseURL}/subCategorias`);
   }
 
-  getSubCateriesByCategory(categoryFatherId: number){
-    return this.http.get<Category[]>(`${this.baseURL}/subCategorias/${categoryFatherId}`)
+  getSubCateriesByCategory(categoryFatherId: number) {
+    return this.http.get<any[]>(
+      `${this.baseURL}/subCategorias/${categoryFatherId}`
+    );
   }
 
   savePieceCategory(category: any) {
@@ -39,5 +44,4 @@ export class CategoryService {
   updatePieceCategory(category: any, categoryID: number) {
     return this.http.put(`${this.baseURL}/${categoryID}`, category);
   }
-
 }

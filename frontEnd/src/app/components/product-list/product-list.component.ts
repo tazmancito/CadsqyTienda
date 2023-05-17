@@ -1,8 +1,13 @@
-import { Component, Input } from "@angular/core";
+import { Component } from "@angular/core";
 import { PageEvent } from "@angular/material/paginator";
-import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
+import { arrayToMap, mapToArray } from "@components/utils/mapUtil";
+import { Category } from "@models/category";
 import { Product } from "@models/product";
+import { CategoryService } from "@services/category-service.service";
 import { ProductService } from "@services/product-service.service";
+import { v4 as uuidv4 } from "uuid";
+
 @Component({
   selector: "app-product-list",
   templateUrl: "./product-list.component.html",
@@ -11,23 +16,35 @@ import { ProductService } from "@services/product-service.service";
 export class ProductListComponent {
   products: Product[] = [];
   productsShowing: Product[] = [];
+  category: any;
+  subCategories: any[] = [];
 
   length = this.products.length;
   pageSize = 10;
   pageIndex = 0;
   pageSizeOptions = [10, 25, 50];
 
-  @Input() category: string = "";
-
   constructor(
     private _productService: ProductService,
-    private route: ActivatedRoute,
-    private router: Router
+    private _categoryService: CategoryService,
+    private route: ActivatedRoute
   ) {}
+
+  ngAfterViewInit() {}
 
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
       if (params.get("categoria") != null) {
+        this._categoryService
+          .getCategoryByName(params.get("categoria")!)
+          .subscribe((result) => {
+            this.category = result[0];
+            this._categoryService
+              .getSubCateriesByCategory(this.category.CategoriasId!)
+              .subscribe((res) => {
+                this.subCategories = res;
+              });
+          });
         this._productService
           .getProductsByCategory(params.get("categoria")!)
           .subscribe((result: Product[]) => {
@@ -37,7 +54,11 @@ export class ProductListComponent {
             }
           });
       } else {
-        this.getProducts();
+        if (params.get("nombreProducto") != null) {
+          this.searchProduct(params.get("nombreProducto")!);
+        } else {
+          this.getProducts();
+        }
       }
     });
   }
@@ -47,6 +68,14 @@ export class ProductListComponent {
     this.length = e.length;
     this.pageIndex = e.pageIndex;
     this.showProducts();
+  }
+
+  async searchProduct(nameProduct: string) {
+    this._productService
+      .getProductsByName(nameProduct)
+      .subscribe((result: Product[]) => {
+        this.chageProductList(result);
+      });
   }
 
   async getProducts() {
@@ -88,20 +117,29 @@ export class ProductListComponent {
     }
   }
 
-  addProductToCart(product: Product) {
-    if (localStorage.getItem("listP")) {
-      try {
-        let aux = JSON.parse(localStorage.getItem("listP")!);
-        aux.push(product);
+  addProductToCart(product: any) {
+    // if (localStorage.getItem("carrito")) {
+    //   try {
+    //     let cart: any[] = JSON.parse(localStorage.getItem("carrito")!);
+    //     let aux = arrayToMap(cart);
 
-        localStorage.setItem("listP", JSON.stringify(aux));
-      } catch (error) {
-        console.log("hubo un error");
-      }
-    } else {
-      let aux: Product[] = [];
-      aux.push(product);
-      localStorage.setItem("listP", JSON.stringify(aux));
-    }
+    //     if (aux.has(product)) {
+    //       aux.set(product, aux.get(product)! + 1);
+    //     } else {
+    //       aux.set(product, 1);
+    //     }
+
+    //     localStorage.setItem("carrito", JSON.stringify(mapToArray(aux)));
+    //   } catch (error) {
+    //     console.log("hubo un error");
+    //   }
+    // } else {
+    //   let aux = [{ clave: product, valor: 1 }];
+
+    //   localStorage.setItem("carrito", JSON.stringify(aux));
+    // }
+
+    const deviceID = uuidv4();
+    console.log(deviceID);
   }
 }

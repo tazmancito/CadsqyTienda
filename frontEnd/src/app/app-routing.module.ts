@@ -9,6 +9,8 @@ import { ProductListComponent } from "@components/product-list/product-list.comp
 const routes: Routes = [
   { path: "", redirectTo: "Inicio", pathMatch: "full" },
 
+  { path: "buscar/:nombreProducto", component: ProductListComponent },
+
   { path: "categoria/:categoria", component: ProductListComponent },
 
   { path: "carrito", component: CartComponent },
